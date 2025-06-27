@@ -36,34 +36,34 @@ double atof(char str[], int arr_size) {
 	int i, sign, exp_val, exp_sign=0;
 	int exp_state = FALSE;
 	
-	for (i = 0; isspace(str[i]); i++) // check the ++i 
+	for (i = 0; isspace(str[i]); i++) // bypassing the starting space charracters if present
 		;
-	sign = (str[i] == '-') ? -1 : 1;
+	sign = (str[i] == '-') ? -1 : 1; // checking for the sign of the value
 	
 		
-	if ((str[i] == '-') || (str[i] == '+'))
+	if ((str[i] == '-') || (str[i] == '+'))  // move to the next character after '-' or '+'
 		i++;
 
-	for (val = 0.0; isdigit(str[i]); i++) {
+	for (val = 0.0; isdigit(str[i]); i++) {  // processing integer part of a number
 		val = 10.0 * val + (str[i] - '0');
 	}
 
 	if (str[i] == '.')
 		i++;
-	for (power = 1.0; isdigit(str[i]); i++) {
+	for (power = 1.0; isdigit(str[i]); i++) { // processing fractional part of a number
 		val = 10.0 * val + (str[i] - '0');
-		power /= 10;
+		power /= 10; 
 		printf("power = %.15f\n", power);
 	}
 
-	if (str[i] == 'e' || str[i] == 'E') {
+	if (str[i] == 'e' || str[i] == 'E') {  // enabling processing the exponential part of a number
 		exp_state = TRUE;
-		i++;
+		i++; 
 	} 
 		
-	(exp_state == TRUE) ? printf("exp_state set -> true\n") : printf("exp_state set -> false\n"); // debug string
+	(exp_state == TRUE) ? printf("exp_state set -> true\n") : printf("exp_state set -> false\n"); // debug line
 
-	if (str[i] == '-' && exp_state == TRUE) {
+	if (str[i] == '-' && exp_state == TRUE) {   // saving the sign of the exponential part
 		exp_sign = -1;
 		i++;
 	}		
@@ -71,25 +71,25 @@ double atof(char str[], int arr_size) {
 		exp_sign = 1;		
 	}
 	
-	printf("exp_sign = %d\n", exp_sign); // debug string
+	printf("exp_sign = %d\n", exp_sign); // debug line
 
-	for (exp_val = 0; isdigit(str[i]); i++) {
-		printf("exp = %c\n", str[i]);
+	for (exp_val = 0; isdigit(str[i]); i++) {	// processing the exponential part of a number
+		printf("exp = %c\n", str[i]);  // debug line
 		exp_val = exp_val * 10 + (str[i] - '0');
 	}
 
-	printf("exp_val = %d\n", exp_val * exp_sign);
+	printf("exp_val = %d\n", exp_val * exp_sign);	// debug line
 
 	if (exp_state == TRUE) {
 
 		for (int j = 1; j <= exp_val; j++) {
 			if (exp_sign == 1) {
 				power *= 10;
-				printf("power = %.15f\n", power);
+				printf("power = %.15f\n", power);	// debug line
 			}
 			else if (exp_sign == -1) {
 				power /= 10;
-				printf("power = %.15f\n", power);
+				printf("power = %.15f\n", power);	// debug line
 			}
 		}
 	}
