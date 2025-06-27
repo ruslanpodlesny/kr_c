@@ -1,0 +1,4 @@
+# K&R C ignore list
+
+*.exe
+*.o
